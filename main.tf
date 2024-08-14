@@ -385,7 +385,7 @@ resource "zedcloud_edgenode" "tf_edgenode_create" {
   name = "TOI-EDGE-NODE"
   title = "TOI-EDGE-NODE"
   project_id = zedcloud_project.tf_toi_project_1.id
-  onboarding_key = "<zededa onboarding key?"                                          ###### Zededa onboarding key
+  onboarding_key = "<zededa onboarding key>"                                          ###### Zededa onboarding key
   serialno = "KSA5693882"                                                             ###### This can be soft_serial or physical serial depends on your situation
   description = "TOI Demo"
   admin_state = "ADMIN_STATE_ACTIVE"
