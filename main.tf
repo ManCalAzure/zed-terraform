@@ -508,15 +508,28 @@ resource "zedcloud_network_instance" "tf_mgt_net_1" {
   title = "MGT-NET"
   kind = "NETWORK_INSTANCE_KIND_SWITCH"                       ##### Instance type switch
   type = "NETWORK_INSTANCE_DHCP_TYPE_UNSPECIFIED"
-  port = "eth2"                                               ##### Physical port eth2 is assigned to this Network Instance
+  port = "eth1"                                               ##### Physical port eth2 is assigned to this Network Instance
   device_id = zedcloud_edgenode.tf_edgenode_create.id         ##### Denotes the edge node you want to create this Network Instance on - Edge created in line 383
+  ip {
+    dhcp_range {
+    end = "10.1.0.30"
+    start = "10.1.0.20"
+    }
+    dns = [
+      "1.1.1.1"
+    ]
+    domain = ""
+    gateway = "10.1.0.1"
+    ntp = ""
+    subnet = "10.1.0.0/24"
+    }
 }
 
 resource "zedcloud_network_instance" "tf_untrust_net_1" {     ##### Another Network Instance for the firewall Port2
   name = "UNTRUST-NET"
   title = "UNTRUST-NET"
   kind = "NETWORK_INSTANCE_KIND_SWITCH"                       ##### Instance type switch
-  type = "NETWORK_INSTANCE_DHCP_TYPE_UNSPECIFIED"
+  type = "NETWORK_INSTANCE_DHCP_TYPE_V4"
   port = "eth4"                                               ##### Mapping to physical port eth4           
   device_id = zedcloud_edgenode.tf_edgenode_create.id         ##### Denotes the edge node you want to create this Network Instance on - Edge created in line 383
 }
@@ -530,16 +543,16 @@ resource "zedcloud_network_instance" "tf_airgap_net_1" {
   device_id = zedcloud_edgenode.tf_edgenode_create.id         ##### Denotes the edge node you want to create this Network Instance on - Edge created in line 383
   ip {
   dhcp_range {
-  end = "10.2.0.30"
-  start = "10.2.0.20"
+  end = "10.3.0.30"
+  start = "10.3.0.20"
   }
   dns = [
     "1.1.1.1"
   ]
   domain = ""
-  gateway = "10.2.0.1"
+  gateway = "10.3.0.1"
   ntp = ""
-  subnet = "10.2.0.0/24"
+  subnet = "10.3.0.0/24"
   }
  depends_on = [ zedcloud_edgenode.tf_edgenode_create ]
 }
@@ -553,16 +566,16 @@ resource "zedcloud_network_instance" "tf_wan_net_1" {
   device_id = zedcloud_edgenode.tf_edgenode_create.id
   ip {
     dhcp_range {
-    end = "10.1.0.30"
-    start = "10.1.0.20"
+    end = "10.2.0.30"
+    start = "10.2.0.20"
   }
     dns = [
       "1.1.1.1"
   ]
     domain = ""
-    gateway = "10.1.0.1"
+    gateway = "10.2.0.1"
     ntp = "64.246.132.14"
-    subnet = "10.1.0.0/24"
+    subnet = "10.2.0.0/24"
   }
  depends_on = [ zedcloud_edgenode.tf_edgenode_create ]
 }
